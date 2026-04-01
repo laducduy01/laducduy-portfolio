@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lã Đức Duy - Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  background: #0f2027;
+  overflow-x: hidden;
+}
+
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.container {
+  text-align: center;
+  margin-top: 60px;
+  animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(30px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+.avatar {
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid cyan;
+  box-shadow: 0 0 25px cyan;
+  transition: 0.4s;
+}
+.avatar:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 40px cyan;
+}
+
+h1 span { color: cyan; }
+
+.btn {
+  margin: 10px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background: cyan;
+  color: black;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.btn:hover {
+  transform: scale(1.1);
+}
+
+.social {
+  margin-top: 15px;
+}
+
+.social a {
+  text-decoration: none;
+  color: white;
+  margin: 0 10px;
+  font-size: 20px;
+  transition: 0.3s;
+}
+.social a:hover {
+  color: cyan;
+  text-shadow: 0 0 10px cyan;
+}
+
+.skill {
+  width: 80%;
+  margin: 10px auto;
+  background: #333;
+  border-radius: 20px;
+}
+.skill-bar {
+  height: 10px;
+  width: 0;
+  background: cyan;
+  border-radius: 20px;
+  transition: 2s;
+}
+
+.chatbox {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 250px;
+  background: rgba(0,0,0,0.6);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+.chatbox input { width: 100%; }
+
+.toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<div class="toggle" onclick="toggleMode()">🌗</div>
+
+<div class="container">
+
+<img src="avatar.jpg" class="avatar">
+
+<h1>👋 <span>Lã Đức Duy🐰</span></h1>
+
+<h2 id="typing"></h2>
+
+<p>🚀 Đam mê công nghệ | 🎮 Thích game | 💡 Sáng tạo</p>
+
+<button class="btn" onclick="playMusic()">🎵 Nhạc</button>
+
+<div class="social">
+  <a href="https://www.facebook.com/laducduy.8386/" target="_blank"> Facebook</a>
+</div>
+
+<h3>💪 Kỹ năng</h3>
+
+<div class="skill"><div class="skill-bar" data-width="85%"></div></div>
+<div class="skill"><div class="skill-bar" data-width="70%"></div></div>
+<div class="skill"><div class="skill-bar" data-width="60%"></div></div>
+
+</div>
+
+<div class="chatbox">
+  <div id="chat"></div>
+  <input placeholder="Hỏi gì đó..." onkeydown="chat(event)">
+</div>
+
+<audio id="music" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3">
+</audio>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<script>
+particlesJS("particles-js", {
+  particles: { number: { value: 80 }, size: { value: 3 } }
+});
+
+function toggleMode(){
+  document.body.style.background =
+    document.body.style.background === "white" ? "#0f2027" : "white";
+}
+
+function playMusic(){
+  let m = document.getElementById("music");
+  m.paused ? m.play() : m.pause();
+}
+
+let text = "💻 Web Developer | 🔥 Cool Guy";
+let i = 0;
+function typing(){
+  if(i < text.length){
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typing, 50);
+  }
+}
+typing();
+
+window.onload = () => {
+  document.querySelectorAll(".skill-bar").forEach(bar => {
+    bar.style.width = bar.dataset.width;
+  });
+};
+
+function chat(e){
+  if(e.key === "Enter"){
+    let val = e.target.value;
+    let box = document.getElementById("chat");
+
+    let reply = "🤖 Chưa hiểu 😅";
+    if(val.includes("facebook")) reply = "Đây Facebook của bạn 👇";
+    if(val.includes("tên")) reply = "Bạn là Lã Đức Duy 😎";
+
+    box.innerHTML += `<p>🧑 ${val}</p><p>${reply}</p>`;
+    e.target.value = "";
+  }
+}
+</script>
+
+</body>
+</html>
